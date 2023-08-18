@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamentals</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container head">
+    <h1>Angular fundamentals</h1>
+    <p>These are my notes on the angular fundamentals course I took at platzi. </p>
+    <a href="https://platzi.com/clases/2478-angular/41035-que-es-angular-y-como-aprenderlo/">Link al curso</a>
+    
+  </div>
+
+  <div class="container">
+    <!--Binding-->
+    <h2>Property Binding</h2>
+    <p>The property Binding help us to load a variable with square brackets '[]' 
+      around the element property in the template, and inside those brackets, 
+      you'd put the component's variable name.</p>
+    <input type="text" [value]="name">
+    <!-- <button [disabled]="btnDisabled">Enviar</button> -->
+
+
+    <h2>Use of square brackets </h2>
+    <p>Here are some text writen putting two brackets with something inside to load variables, text, numbers or anything</p>
+    <p>{{ 'Hola mundo'.repeat(5) }}</p>
+    <p>3 + 3 = {{ 3 + 3 }}</p>
+    <img src="{{person.avatar}}" alt="image">
+
+    <!--Event Binding-->
+    <h2>Event Binding</h2>
+    <p>This property help us to manage a property like desabled putting it inside '[]' 
+      brackets and giving the value of a variable like "btnDisabled" with could change with
+      a function named "toggleButton()" called by click with the button</p>
+
+    <br>
+    <h3>toggleButton</h3>
+    <button [disabled]="btnDisabled">Enviar</button>
+    <button (click)="toggleButtpon()">Toggle button</button>
+
+    <br>
+    <h3>Increase age</h3>
+    <p>Edad {{ person.age }}</p>
+    <button (click)="increaseAge()">Age ++</button>
+    
+    <br>
+    <h3>Scroll</h3>
+    <p>Open the console, scroll and see what happen. </p>
+    <div class="box" (scroll)="onScroll($event)">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit sequi id magnam? Quisquam voluptate a recusandae quia ratione incidunt alias, facere fugiat deleniti sit sunt, ex, nihil hic nulla dolorem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, nesciunt? Quis ab inventore facere porro nostrum explicabo blanditiis, pariatur ut rerum tempore accusamus eaque sunt laborum saepe dolor. Reprehenderit, ratione.</p>
+    </div>
+
+    <br>
+    <h3>Load the input</h3>
+    <p>Nombre: {{person.name}}</p>
+    <input type="text" [value]="person.name" (keyup)="changeName($event)" id="">
+
+    <!--NgModel-->
+    <h2>NgModel</h2>
+    <p>Nombre: {{person.name}}</p>
+    <input type="text" required #nameInput="ngModel" [(ngModel)]="person.name" >
+    <p>Valid: {{nameInput.valid}}</p>
+
+    <h2>*ngIf</h2>
+    <input type="text" required [(ngModel)]="person.name" >
+    <p *ngIf="person.name == 'Rebeca' ; else elseBlock">Soy Rebeca</p>
+    <ng-template #elseBlock>
+      <p>Bloque de else</p>
+    </ng-template>
+    <hr>
+
+    <h2>*ngFor</h2>
+    <input type="text" required [(ngModel)]="newName" >
+    <button (click)="addName()">Add name</button>
+    <ul>
+      <li *ngIf="names.length === 0">La lista esta vacia</li>
+      <li *ngFor="let name of names; index as i"> 
+        {{i}} {{name}}
+        <button (click)="deleteName(i)">Delete</button>
+      </li>
+    </ul>
+    <hr>
+
+    <h2>*ngFor Objs</h2>
+    <div class="products--grid">
+      <div *ngFor="let product of products">
+        <img [src]="product.image" alt="image">
+        <h2> {{ product.price }} </h2>
+        <p> {{ product.name }}</p>
+      </div>
+    </div>
+    <hr>
+
+    <h2>*ngSwitch</h2>
+    <input type="text" required #nameInput="ngModel" [(ngModel)]="person.name" >
+    <div [ngSwitch]="person.name">
+      <p *ngSwitchCase="'Rebeca'">Soy Rebeca</p>
+      <p *ngSwitchCase="'Nora'">Soy Nora</p>
+      <p *ngSwitchCase="'Alan'">Soy Alan</p>
+      <p *ngSwitchCase="'Jahir'">Soy Jahir</p>
+      <p *ngSwitchDefault>No hace match con ninguno</p>
+    </div>
+    <hr>
+
+    <h2>Class && Style</h2>
+    <input type="text" required #nameInput2="ngModel" [(ngModel)]="person.name" >
+    <p class="message-error" [class.invalid]="nameInput2.invalid">El campo es requerido</p>
+
+    <label for="nombre">Nombre</label>
+    <input type="text" required #nameInput3="ngModel" [(ngModel)]="person.name" >
+    <p [style.font-style]="nameInput3.invalid ? 'italic' : 'normal'">Texto dinamico</p>
+    <hr>
+
+    <div>
+      <div>
+        <input type="text" [(ngModel)]="widthImg">
+      </div>
+      <div>
+        <img [style.width.px]="widthImg" src="{{person.avatar}}"  alt="image">
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <input type="text" [(ngModel)]="widthImgP">
+      </div>
+      <div>
+        <img [style.width.%]="widthImgP" src="{{person.avatar}}"  alt="image">
+      </div>
+    </div>
+    <hr>
+
+    <h2>ngClass && ngStyle</h2>
+    <input type="text" required #nameInput4="ngModel" [(ngModel)]="person.name" >
+    <hr class="line-error"
+    [ngClass]= "{
+      'valid': nameInput4.valid,
+      'invalid': nameInput4.invalid
+      }" />
+    <p class="message-error" [class.invalid]="nameInput2.invalid">El campo es requerido</p>
+
+    <div>
+      <input type="number" [(ngModel)]="box.width">
+      <input type="number" [(ngModel)]="box.height">
+      <input type="color" [(ngModel)]="box.background">
+    </div>
+    <div>
+      <div [ngStyle]="{
+        'width.px': box.width,
+        'height.px': box.height,
+        'background-color': box.background
+      }"></div>
+    </div>
+
+    <img src="https://www.noraprogramadora.com/wp-content/uploads/2023/08/angular-fundamentos.png" alt="">
+  </div>
+
+<!-- <h1>Formulario</h1>
+<form (ngSubmit)="onRegister()" #myFor="ngForm">
+  <div class="input-group">
+    <label for="name">Nombre</label>
+    <input type="text" name="name" required id="name" [(ngModel)]="register.name">
+    <p>Mensajes de error</p>
+  </div>
+  <div class="input-group">
+    <label for="email">Email</label>
+    <input type="email" name="email" required id="email" [(ngModel)]="register.email">
+    <p>Mensajes de error</p>
+  </div>
+  <div class="input-group">
+    <label for="password">Password</label>
+    <input type="password" name="password" required id="password" [(ngModel)]="register.password">
+    <p>Mensajes de error</p>
+  </div>
+  <button [disabled]="myForm.invalid" type="submit">Register</button>
+</form> -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
